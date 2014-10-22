@@ -1,5 +1,6 @@
 /**
  * Yet Another API Documentation Tool
+ * https://github.com/dclodder/apidoc
  * Display your API specification from JSON to HTML with AngularJS
  *
  * Copyright (C) 2014  Dennis Lodder
