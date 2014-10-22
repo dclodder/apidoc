@@ -6,7 +6,6 @@
 #Installation:
 
 - ``bower install``
-- ``compass compile assets``
 - ``cp config.json.example config.json``
 - Add a json file with the specification of your API to /projects/ folder
 
