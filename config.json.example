@@ -1,0 +1,10 @@
+{
+  "projects" : [
+    {
+      "name" : "My first API dodumentation",
+      "url": "apidoc-v1",
+      "version" : "v1",
+      "specification" : "apidoc-v1.json"
+    }
+  ]
+}

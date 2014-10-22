@@ -1,0 +1,100 @@
+.apidoc-container {
+  @include display-flex(flex);
+  @include flex-direction(columns);
+  font: 400 16px $sans;
+}
+
+.apidoc-aside {
+  min-width:100px;
+  @include flex-wrap(1);
+
+  nav {
+  }
+}
+
+.apidoc-resources {
+  @include flex-grow(1);
+  min-width:400px;
+  margin-left:20px;
+}
+
+.apidoc-code {
+
+  font: 400 14px $mono;
+  line-height:14px;
+  display: block;
+  padding: $padding;
+  @include border-radius(5px);
+  background-color: #eee;
+  overflow: auto;
+}
+code {
+  display: inline;
+  font-family: $mono;
+}
+
+.apidoc-request {
+  @include border-radius(5px);
+  border: 1px solid #eee;
+  margin-bottom:$padding;
+}
+
+.apidoc-request-header {
+  display: block;
+  padding: $padding;
+  overflow: hidden;
+  @include border-radius(5px);
+  cursor: pointer;
+}
+.apidoc-request-uri {
+  font-family: $mono;
+}
+.apidoc-request-method {
+  display: inline-block;
+  width: 60px;
+  padding: $padding;
+  @include border-radius(5px);
+  margin: (-$padding) $padding (-$padding) (-$padding);
+  text-align: center;
+}
+.apidoc-request-header--GET {
+  background-color: #ddddff;
+  .apidoc-request-method {
+    background-color: #000099;
+    color: #fff;
+  }
+}
+.apidoc-request-header--POST {
+  background-color: #ddffdd;
+  .apidoc-request-method {
+    background-color: #009900;
+    color: #fff;
+  }
+}
+.apidoc-request-header--PATCH,
+.apidoc-request-header--PUT {
+  background-color: #fdb;
+  .apidoc-request-method {
+    background-color: #f90;
+    color: #fff;
+  }
+}
+.apidoc-request-header--DELETE {
+  background-color: #ffdddd;
+  .apidoc-request-method {
+    background-color: #990000;
+    color: #fff;
+  }
+}
+
+.apidoc-request-description {
+  display: inline-block;
+  float: right;
+  font-size: 14px;
+}
+.apidoc-request-parameters {
+ padding: $padding;
+}
+.apidoc-request-content {
+  padding: $padding;
+}

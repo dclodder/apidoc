@@ -1,0 +1,157 @@
+@import url(http://fonts.googleapis.com/css?family=Cutive+Mono);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400);
+.apidoc-container {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: columns;
+  flex-direction: columns;
+  font: 400 16px "Source Sans Pro", sans-serif;
+}
+
+.apidoc-aside {
+  min-width: 100px;
+  -webkit-flex-wrap: 1;
+  flex-wrap: 1;
+}
+
+.apidoc-resources {
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  min-width: 400px;
+  margin-left: 20px;
+}
+
+.apidoc-code {
+  font: 400 14px "Cutive Mono", sans-serif;
+  line-height: 14px;
+  display: block;
+  padding: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #eee;
+  overflow: auto;
+}
+
+code {
+  display: inline;
+  font-family: "Cutive Mono", sans-serif;
+}
+
+.apidoc-request {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #eee;
+  margin-bottom: 5px;
+}
+
+.apidoc-request-header {
+  display: block;
+  padding: 5px;
+  overflow: hidden;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.apidoc-request-uri {
+  font-family: "Cutive Mono", sans-serif;
+}
+
+.apidoc-request-method {
+  display: inline-block;
+  width: 60px;
+  padding: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  margin: -5px 5px -5px -5px;
+  text-align: center;
+}
+
+.apidoc-request-header--GET {
+  background-color: #ddddff;
+}
+.apidoc-request-header--GET .apidoc-request-method {
+  background-color: #000099;
+  color: #fff;
+}
+
+.apidoc-request-header--POST {
+  background-color: #ddffdd;
+}
+.apidoc-request-header--POST .apidoc-request-method {
+  background-color: #009900;
+  color: #fff;
+}
+
+.apidoc-request-header--PATCH,
+.apidoc-request-header--PUT {
+  background-color: #fdb;
+}
+.apidoc-request-header--PATCH .apidoc-request-method,
+.apidoc-request-header--PUT .apidoc-request-method {
+  background-color: #f90;
+  color: #fff;
+}
+
+.apidoc-request-header--DELETE {
+  background-color: #ffdddd;
+}
+.apidoc-request-header--DELETE .apidoc-request-method {
+  background-color: #990000;
+  color: #fff;
+}
+
+.apidoc-request-description {
+  display: inline-block;
+  float: right;
+  font-size: 14px;
+}
+
+.apidoc-request-parameters {
+  padding: 5px;
+}
+
+.apidoc-request-content {
+  padding: 5px;
+}
+
+.parameter-table {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #eee;
+}
+.parameter-table td {
+  border-top: 1px solid #eee;
+}
+.parameter-table th {
+  text-align: left;
+  background-color: #eee;
+}
+.parameter-table th, .parameter-table td {
+  padding: 5px 10px;
+}
+
+@media (max-width: 1024px) {
+  .apidoc-aside {
+    display: none;
+  }
+
+  .apidoc-resources {
+    margin: 0 10px;
+  }
+}
+@media (max-width: 640px) {
+  .apidoc-request-description {
+    display: none;
+  }
+}
+@media (max-width: 460px) {
+  .apidoc-request-uri-base {
+    display: none;
+  }
+}

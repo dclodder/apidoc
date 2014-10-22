@@ -1,0 +1,20 @@
+.parameter-table{
+  @include border-radius(5px);
+  border: 1px solid #eee;
+
+  td {
+    border-top: 1px solid #eee;
+  }
+  th {
+    text-align: left;
+    background-color: #eee;
+  }
+  th,td {
+    padding: 5px 10px;
+  }
+
+}
+
+.parameter-table-row--highlight {
+//  background: blue;
+}
