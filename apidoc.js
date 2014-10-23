@@ -35,30 +35,94 @@ angular.module('apidoc',['ui.router'])
         controller: 'ApiDocController'
       });
   })
-  .factory('api',function($q,$http,$state) {
+  .factory('storage', function($window) {
     return {
-      get: function(){
-        var deferred = $q.defer();
-        $http.get('projects/'+$state.params.project+'.json?t='+new Date().getTime()).success(function(data) {
-          for ( var g in data.resources ) {
-            data.resources[g].id = data.resources[g].title.replace(' ','-');
-            for ( var r in data.resources[g].requests ) {
-              data.resources[g].requests[r].id = data.resources[g].requests[r].title.replace(' ','-');
-              data.resources[g].requests[r].response = JSON.stringify(data.resources[g].requests[r].response,null,2);
-            }
-          }
-          deferred.resolve(data);
-        });
-        return deferred.promise;
+      put: function(key,value) {
+        return $window.localStorage.setItem(key,JSON.stringify(value));
+      },
+      get: function(key) {
+        try {
+          return JSON.parse($window.localStorage.getItem(key));
+        } catch (e) {
+          return null;
+        }
+      },
+      delete: function(key){
+        this.put(key, null);
+      },
+      clear: function() {
+        $window.localStorage.clear();
       }
     }
   })
-  .factory('projectList', function($q,$http){
+  .factory('api',function($q,$http,$state,projectList) {
+
+    function processApiData(data) {
+      for ( var g in data.resources ) {
+        data.resources[g].id = data.resources[g].title.replace(' ','-');
+        for ( var r in data.resources[g].requests ) {
+          data.resources[g].requests[r].id = data.resources[g].requests[r].title.replace(' ','-');
+          data.resources[g].requests[r].response = JSON.stringify(data.resources[g].requests[r].response,null,2);
+        }
+      }
+      return data;
+    }
+
     return {
-      get: function() {
+
+      get: function(){
         var deferred = $q.defer();
-        $http.get('config.json').success( function(data){
-          deferred.resolve(data.projects);
+        projectList.get($state.params.project).then(
+          function(project){
+            $http.get(project.file + '?t='+new Date().getTime())
+              .success(function(data) {
+                var apidoc = processApiData(data);
+                deferred.resolve(apidoc);
+              })
+              .error( function() {
+                deferred.reject('file not found');
+              });
+          },
+          function (msg) {
+            deferred.reject(msg);
+          }
+        );
+        return deferred.promise;
+      }
+
+    }
+  })
+  .factory('projectList', function($q,$http,storage){
+    return {
+      getAll: function() {
+        var deferred = $q.defer();
+        var projectList = storage.get('projectList');
+        if ( projectList ) {
+          deferred.resolve(projectList);
+        } else {
+          $http.get('config.json').success( function(data){
+            projectList = {};
+            for ( var i in data.projects ) {
+              var project = data.projects[i];
+              projectList[project.url] = project;
+            }
+            storage.put('projectList',projectList);
+            deferred.resolve(projectList);
+          });
+        }
+        return deferred.promise;
+      },
+      reset: function(){
+        storage.delete('projectList');
+      },
+      get: function(key) {
+        var deferred = $q.defer();
+        this.getAll().then( function(projects){
+          if ( projects[key] ) {
+            deferred.resolve(projects[key]);
+          } else {
+            deferred.reject('unknown project');
+          }
         });
         return deferred.promise;
       }
@@ -80,7 +144,8 @@ angular.module('apidoc',['ui.router'])
   })
   .controller('ListController', function($scope, $state, projectList) {
 
-    projectList.get().then( function(projects) {
+    projectList.reset();
+    projectList.getAll().then( function(projects) {
       $scope.projects = projects;
     });
 
