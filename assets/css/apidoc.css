@@ -39,6 +39,7 @@ code {
 }
 
 .apidoc-request {
+  position: relative;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -117,6 +118,19 @@ code {
 
 .apidoc-request-content {
   padding: 5px;
+}
+.apidoc-request-content p {
+  max-width: 700px;
+}
+
+.apidoc-request-auth {
+  position: absolute;
+  display: inline-block;
+  background-image: url('../img/lock.svg?1421936446');
+  background-size: 16px 16px;
+  width: 16px;
+  height: 16px;
+  left: -18px;
 }
 
 .parameter-table {

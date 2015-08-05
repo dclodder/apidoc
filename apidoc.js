@@ -96,12 +96,9 @@ angular.module('apidoc',['ui.router'])
     return {
       getAll: function() {
         var deferred = $q.defer();
-        var projectList = storage.get('projectList');
-        if ( projectList ) {
-          deferred.resolve(projectList);
-        } else {
-          $http.get('config.json').success( function(data){
-            projectList = {};
+          var v = new Date().toTimeString();
+          $http.get('config.json?v='+v).success( function(data){
+            var projectList = {};
             for ( var i in data.projects ) {
               var project = data.projects[i];
               projectList[project.url] = project;
@@ -109,7 +106,6 @@ angular.module('apidoc',['ui.router'])
             storage.put('projectList',projectList);
             deferred.resolve(projectList);
           });
-        }
         return deferred.promise;
       },
       reset: function(){

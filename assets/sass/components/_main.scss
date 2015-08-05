@@ -34,6 +34,7 @@ code {
 }
 
 .apidoc-request {
+  position: relative;
   @include border-radius(5px);
   border: 1px solid #eee;
   margin-bottom:$padding;
@@ -93,8 +94,21 @@ code {
   font-size: 14px;
 }
 .apidoc-request-parameters {
- padding: $padding;
+  padding: $padding;
 }
 .apidoc-request-content {
   padding: $padding;
+  p {
+    max-width: 700px;
+  }
+}
+
+.apidoc-request-auth {
+  position: absolute;
+  display: inline-block;
+  background-image: image-url('lock.svg');
+  background-size: 16px 16px;
+  width:16px;
+  height:16px;
+  left: -18px;
 }

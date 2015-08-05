@@ -1,55 +1,62 @@
 <div class="apidoc-container">
-<aside class="apidoc-aside">
-  <nav>
-    <ul>
-      <li ng-repeat="resource in api.resources">
-        <a ng-click="scrollTo(resource.id)">{{resource.title}}</a>
-        <ul ng-show="resource.requests">
-        <li ng-repeat="request in resource.requests">
-        <a ng-click="scrollTo(request.id)">{{request.title}}</a>
-        </li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
-</aside>
+    <aside class="apidoc-aside">
+        <nav>
+            <ul>
+                <li ng-repeat="resource in api.resources">
+                    <a ng-click="scrollTo(resource.id)">{{resource.title}}</a>
+                    <ul ng-show="resource.requests">
+                        <li ng-repeat="request in resource.requests">
+                            <a ng-click="scrollTo(request.id)">{{request.title}}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
 
-  <div class="apidoc-resources">
-    <article class="apidoc-resource" ng-repeat="resource in api.resources">
-      <a id="resource.id"></a>
-      <header>
-        <h2>{{resource.URI}}</h2>
-      </header>
-      <section ng-repeat="request in resource.requests" class="apidoc-request">
-        <a id="{{request.id}}"></a>
-        <header class="apidoc-request-header apidoc-request-header--{{request.method}}" ng-click="request.open= !request.open">
-          <span class="apidoc-request-method">{{request.method}}</span>
-          <span class="apidoc-request-uri"><span class="apidoc-request-uri-base">{{api.base}}</span>{{resource.URI}}{{request.URI}}</span>
-          <span class="apidoc-request-description">{{request.description}}</span>
-        </header>
-        <div ng-show="request.open" class="apidoc-request-content">
-          <p>{{request.text}}</p>
-          <div ng-show="request.params" class="apidoc-request-parameters">
-            <p>parameters:</p>
-            <table class="parameter-table">
-              <tr>
-                <th scope="col">parameter</th>
-                <th scope="col">value</th>
-                <th scope="col">description</th>
-              </tr>
-              <tr ng-repeat="item in request.params" ng-class="{'parameter-table-row--highlight': item.required}">
-                <td>{{item.parameter}} {{item.required ? '*' : ''}}</td>
-                <td>{{item.value}}</td>
-                <td>{{item.description}}</td>
-              </tr>
-            </table>
-          </div>
-          <div ng-show="request.response" class="apidoc-request-response">
-            <strong>response</strong>
-            <pre class="apidoc-code">{{request.response}}</pre>
-          </div>
-        </div>
-      </section>
-    </article>
-  </div>
+    <div class="apidoc-resources">
+        <article class="apidoc-resource" ng-repeat="resource in api.resources">
+            <a id="resource.id"></a>
+            <header>
+                <h2>{{resource.URI || resource.title}}</h2>
+            </header>
+            <section ng-repeat="request in resource.requests" class="apidoc-request">
+                <a id="{{request.id}}"></a>
+                <header class="apidoc-request-header apidoc-request-header--{{request.method}}"
+                        ng-click="request.open= !request.open">
+                    <span class="apidoc-request-method">{{request.method}}</span>
+          <span class="apidoc-request-uri">
+            <span class="apidoc-request-auth" ng-show="request.auth"></span>
+            <span class="apidoc-request-uri-base">{{api.base}}</span>
+            {{resource.URI}}{{request.URI}}
+          </span>
+                    <span class="apidoc-request-description">{{request.description}}</span>
+                </header>
+                <div ng-show="request.open" class="apidoc-request-content">
+                    <p>{{request.text}}</p>
+
+                    <div ng-show="request.params" class="apidoc-request-parameters">
+                        <p>parameters:</p>
+                        <table class="parameter-table">
+                            <tr>
+                                <th scope="col">parameter</th>
+                                <th scope="col">value</th>
+                                <th scope="col">description</th>
+                            </tr>
+                            <tr ng-repeat="item in request.params"
+                                ng-class="{'parameter-table-row--highlight': item.required}">
+                                <td>{{item.parameter}} {{item.required ? '*' : ''}}</td>
+                                <td>{{item.value}}</td>
+                                <td>{{item.description}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div ng-show="request.response" class="apidoc-request-response">
+                        <strong>response</strong>
+                        <pre class="apidoc-code">{{request.response}}</pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </div>
 </div>
