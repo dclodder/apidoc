@@ -124,7 +124,12 @@ angular.module('apidoc',['ui.router'])
       }
     }
   })
-  .controller('ApiDocController', function($scope,api) {
+  .controller('ApiDocController', function($scope, $state, api, projectList) {
+    projectList.get($state.params.project).then(
+      function (project) {
+        document.title = project.name;
+      }
+    );
 
     api.get().then(function(api) {
       $scope.api = api;
@@ -139,6 +144,8 @@ angular.module('apidoc',['ui.router'])
     }
   })
   .controller('ListController', function($scope, $state, projectList) {
+
+    document.title = 'API documentation overview';
 
     projectList.reset();
     projectList.getAll().then( function(projects) {
