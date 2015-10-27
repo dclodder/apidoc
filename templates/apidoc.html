@@ -25,12 +25,12 @@
                 <header class="apidoc-request-header apidoc-request-header--{{request.method}}"
                         ng-click="request.open= !request.open">
                     <span class="apidoc-request-method">{{request.method}}</span>
-          <span class="apidoc-request-uri">
-            <span class="apidoc-request-auth" ng-show="request.auth"></span>
-            <span class="apidoc-request-uri-base">{{api.base}}</span>
-            {{resource.URI}}{{request.URI}}
-          </span>
-                    <span class="apidoc-request-description">{{request.description}}</span>
+                    <span class="apidoc-request-uri">
+                        <span class="apidoc-request-auth" ng-show="request.auth"></span>
+                        <span class="apidoc-request-uri-base">{{api.base}}</span>{{resource.URI}}{{request.URI}}
+                    </span>
+                    <span ng-if="request.description" class="apidoc-request-description">{{request.description}}</span>
+                    <span ng-if="!request.description" class="apidoc-request-description">{{request.title}}</span>
                 </header>
                 <div ng-show="request.open" class="apidoc-request-content">
                     <p>{{request.text}}</p>
